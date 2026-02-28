@@ -1,122 +1,109 @@
-In this project, let's build a **Simple Todos** app by applying the concepts we have learned till now.
+# Todo Application
 
-### Refer to the image below:
+A React-based Todo Application built with Create React App (CRA), focused on practicing foundational React concepts through iterative feature development.
 
-<br/>
-<div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/simple-todos-output.gif" alt="simple todos output" style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
-</div>
-<br/>
+## Overview
 
-### Design Files
+This project was initiated during my second week of learning React. Development has primarily focused on the `src` directory, where I continue to enhance functionality and strengthen component-level patterns.
 
-<details>
-<summary>Click to view</summary>
+## Interviewer Snapshot
 
-- [Extra Small (Size < 576px) and Small (Size >= 576px)](https://assets.ccbp.in/frontend/content/react-js/simple-todos-sm-output-v2.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px)](https://assets.ccbp.in/frontend/content/react-js/simple-todos-lg-output-v2.png)
+- **Project Goal:** Build a usable todo manager while reinforcing React fundamentals
+- **Current Scope:** Frontend-only implementation with local, in-memory state
+- **Core Outcome:** Demonstrates component composition, state transitions, and user-driven CRUD flows
 
-</details>
+## Key Features
 
-### Set Up Instructions
+- Display a predefined list of todos
+- Add a single todo item
+- Add multiple copies of a todo in one action (e.g., `Read a book 3`)
+- Edit existing todo titles
+- Delete todo items
+- Toggle completion state using a checkbox (UI state per item)
 
-<details>
-<summary>Click to view</summary>
+## React Concepts Applied
 
-- Download dependencies by running `npm install`
-- Start up the app using `npm start`
-</details>
+- Class and function components
+- Props-driven component communication
+- State initialization and updates
+- Event handling for form and button actions
+- Conditional rendering for edit/view states
+- List rendering with stable keys
+- Immutable state update patterns
 
-### Completion Instructions
+## Implementation Highlights
 
-<details>
-<summary>Functionality to be added</summary>
-<br/>
+- Parent-child state flow where `SimpleTodos` manages list data and `TodoItem` handles item-level interactions
+- Clear event-driven handlers for add, edit, delete, and completion toggle actions
+- Conditional rendering for edit mode to switch between read and update interfaces
+- Utility-like input behavior for quick bulk creation (text + numeric suffix)
 
-The app must have the following functionalities
+## Tech Stack
 
-- Initially, the list of given todos should be displayed with a delete button for each todo
-- When **Delete** button of a todo is clicked, then the respective todo should be deleted
-- The `SimpleTodos` will consist of the `initialTodosList`. It consists of a list of todo objects with the following properties in each todo object
+- React 17
+- Create React App (`react-scripts`)
+- JavaScript (ES6+)
+- CSS
 
-  |  Key  | Data Type |
-  | :---: | :-------: |
-  |  id   |  Number   |
-  | title |  String   |
+## Project Structure
 
-</details>
+```text
+src/
+  App.js
+  App.css
+  index.js
+  components/
+    SimpleTodos/
+      index.js
+      index.css
+    TodoItem/
+      index.js
+      index.css
+```
 
-<details>
-<summary>Components Structure</summary>
+## Getting Started
 
-<br/>
-<div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/simple-todos-component-structure.png" alt="simple todos component structure" style="max-width:100%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
-</div>
-<br/>
+### Prerequisites
 
-</details>
+- Node.js
+- npm or pnpm
 
-<details>
-<summary>Implementation Files</summary>
-<br/>
+### Install Dependencies
 
-Use these files to complete the implementation:
+```bash
+npm install
+```
 
-- `src/components/SimpleTodo/index.js`
-- `src/components/SimpleTodo/index.css`
-- `src/components/TodoItem/index.js`
-- `src/components/TodoItem/index.css`
-</details>
+### Start Development Server
 
-### Quick Tips
+```bash
+npm start
+```
 
-<details>
-<summary>Click to view</summary>
-<br>
+Access the app at `http://localhost:3000`.
 
-- You can use the `cursor` CSS property to specify the mouse cursor to be displayed when pointing over an element
+## Available Scripts
 
-  ```
-    cursor: pointer;
-  ```
+- `npm start` — Run the app in development mode
+- `npm test` — Launch the test runner
+- `npm run build` — Create a production build
+- `npm run lint` — Run ESLint
+- `npm run lint:fix` — Auto-fix lint issues in `src`
+- `npm run format` — Format `src` with Prettier
 
-  <br/>
-   <img src="https://assets.ccbp.in/frontend/content/react-js/cursor-pointer-img.png" alt="cursor pointer" style="width:100px" />
+## Trade-offs and Current Limitations
 
-- You can use the below `outline` CSS property for buttons and input elements to remove the highlighting when the elements are clicked
+- Data is not persisted across refreshes (no backend/local storage yet)
+- Completion and edit state are UI-driven and not centralized globally
+- Minimal validation and no advanced error handling
 
-  ```
-    outline: none;
-  ```
+## Next Improvements
 
-</details>
+- Persist todos using `localStorage` or an API layer
+- Add filtering (All / Active / Completed)
+- Add due dates and priority metadata
+- Improve accessibility and keyboard-only interactions
 
-### Resources
+## Notes
 
-<details>
-<summary>Colors</summary>
-
-<br/>
-
-<div style="background-color: #ffc2a0; width: 150px; padding: 10px; color: black">Hex: #ffc2a0</div>
-<div style="background-color: #ffffff; width: 150px; padding: 10px; color: black">Hex: #ffffff</div>
-<div style="background-color: #ff8542; width: 150px; padding: 10px; color: white">Hex: #ff8542</div>
-<div style="background-color: #000000; width: 150px; padding: 10px; color: white">Hex: #000000</div>
-<div style="background-color: #ff0b37; width: 150px; padding: 10px; color: white">Hex: #ff0b37</div>
-
-</details>
-
-<details>
-<summary>Font-families</summary>
-
-- Roboto
-
-</details>
-
-> ### _Things to Keep in Mind_
->
-> - All components you implement should go in the `src/components` directory.
-> - Don't change the component folder names as those are the files being imported into the tests.
-> - **Do not remove the pre-filled code**
-> - Want to quickly review some of the concepts you’ve been learning? Take a look at the Cheat Sheets.
+This repository reflects an active learning project and is continuously improved with small, practical enhancements.
