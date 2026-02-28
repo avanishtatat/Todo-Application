@@ -40,7 +40,7 @@ const initialTodosList = [
 // Write your code here
 
 class SimpleTodos extends Component {
-  state = {todoList: initialTodosList}
+  state = {todoList: initialTodosList, inputText: ''}
 
   deleteTodo = id => {
     const {todoList} = this.state
@@ -48,18 +48,84 @@ class SimpleTodos extends Component {
     this.setState({todoList: filterredTodos})
   }
 
-  render() {
+  addSingleTodo = inputText => {
+    if (inputText.trim() !== '') {
+      const newTodo = {
+        id: crypto.randomUUID(),
+        title: inputText,
+      }
+      // console.log('New Todo =>', newTodo)
+      this.setState(prevState => ({
+        todoList: [...prevState.todoList, newTodo],
+        inputText: '',
+      }))
+    }
+  }
+
+  addMultipleTodo = (num, todo) => {
+    const todoTitle = todo.join(' ')
+    for (let i = 0; i < num; i++) {
+      this.addSingleTodo(todoTitle)
+    }
+  }
+
+  addTodo = () => {
+    // console.log('ADD button clicked...')
+    const {inputText} = this.state
+    const inputTextList = inputText.split(' ')
+    // console.log('Input Text List =>', inputTextList)
+    const numberOfTodos = Number(inputTextList[inputTextList.length - 1])
+    // console.log('Number of Todos =>', numberOfTodos)
+    if (Number.isNaN(numberOfTodos)) {
+      return this.addSingleTodo(inputText)
+    }
+    return this.addMultipleTodo(
+      numberOfTodos,
+      inputTextList.slice(0, inputTextList.length - 1),
+    )
+  }
+
+  handleChange = e => {
+    this.setState({inputText: e.target.value})
+  }
+
+  updateTodo = (id, updatedTitle) => {
     const {todoList} = this.state
+    const updatedTodoList = todoList.map(eachTodo => {
+      if (eachTodo.id === id && todoList.title !== updatedTitle) {
+        const updatedTodo = {...eachTodo, title: updatedTitle}
+        return updatedTodo
+      }
+      return eachTodo
+    })
+    this.setState({todoList: updatedTodoList})
+  }
+
+  render() {
+    const {todoList, inputText} = this.state
     return (
       <div className="simple-todos-bg-container">
         <div className="simple-todos-container">
           <h1 className="simple-todo-heading">Simple Todos</h1>
+          <div className="add-todo-container">
+            <input
+              type="text"
+              placeholder="Add Todo..."
+              className="todo-input"
+              value={inputText}
+              onChange={this.handleChange}
+            />
+            <button type="button" className="add-button" onClick={this.addTodo}>
+              Add
+            </button>
+          </div>
           <ul className="simple-todo-list-container">
             {todoList.map(eachTodo => (
               <TodoItem
                 todoItem={eachTodo}
                 deleteTodo={this.deleteTodo}
                 key={eachTodo.id}
+                updateTodo={this.updateTodo}
               />
             ))}
           </ul>
