@@ -1,13 +1,20 @@
 // Write your code here
-import {useState} from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './index.css'
 
 const TodoItem = props => {
   const [isChecked, setIsChecked] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const {todoItem, deleteTodo, updateTodo} = props
-  const {id, title} = todoItem
+  const { todoItem, deleteTodo, updateTodo } = props
+  const { id, title } = todoItem
   const [updateTitle, setUpdatedTitle] = useState(title)
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isEditing])
 
   const onDelete = () => {
     deleteTodo(id)
@@ -29,7 +36,7 @@ const TodoItem = props => {
           type="text"
           value={updateTitle}
           className="title-input"
-          autoFocus
+          ref={inputRef}
           onChange={e => setUpdatedTitle(e.target.value)}
         />
       ) : (

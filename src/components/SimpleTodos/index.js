@@ -63,10 +63,22 @@ class SimpleTodos extends Component {
   }
 
   addMultipleTodo = (num, todo) => {
-    const todoTitle = todo.join(' ')
-    for (let i = 0; i < num; i++) {
-      this.addSingleTodo(todoTitle)
+    const todoTitle = todo.join(' ').trim()
+    const count = Number(num)
+
+    if (todoTitle === '' || !Number.isInteger(count) || count <= 0) {
+      return
     }
+
+    const todosToAdd = Array.from({length: count}, () => ({
+      id: crypto.randomUUID(),
+      title: todoTitle,
+    }))
+
+    this.setState(prevState => ({
+      todoList: [...prevState.todoList, ...todosToAdd],
+      inputText: '',
+    }))
   }
 
   addTodo = () => {
